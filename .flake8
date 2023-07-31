@@ -1,0 +1,10 @@
+[flake8]
+max-line-length = 88
+extend-ignore =
+    # E203: Whitespace before ':' (pycqa/pycodestyle#373)
+    E203
+per-file-ignores =
+    # line too long for mock data
+    __init__.py: F401
+exclude =
+    .venv
