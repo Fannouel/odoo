@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_project_success_wizard_manager,success.wizard,model_success_wizard,project.group_project_user,1,1,1,1
+access_project_project_success_wizard_user,success.wizard,model_success_wizard,project.group_project_manager,1,1,1,1
+access_project_project_sync_wizard_manager,sync_wizard,model_success_wizard,project.group_project_user,1,1,1,1
+access_project_project_sync_wizard_user,sync_wizard,model_sync_wizard,project.group_project_manager,1,1,1,1
+

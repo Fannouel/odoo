@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+  <!--vue form ajout champ BC-->
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="BC"/>
+                <field name="stateFabric"/>
+                <field name="client"/>
+            </field>
+        </field>
+    </record>
+  <!--vue form ajout champ BC-->
+      <record id="mrp_production_tree_view" model="ir.ui.view">
+        <field name="name">mrp.production.tree</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="BC"/>
+                <field name="stateFabric" decoration-success="stateFabric == 'U'" decoration-info="stateFabric in ('M','B')"
+                widget="badge"/>
+                <field name="client"/>
+            </field>
+        </field>
+    </record>
+  </data>
+</odoo>

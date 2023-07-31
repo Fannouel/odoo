@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!-- Modification de la vue mrp.production.work.order.form -->
+        <record model="ir.ui.view" id="custom_mrp_workorder_form_view_inherit">
+            <field name="name">custom.mrp.workorder.form</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='time_tracking']//field[@name='workcenter_id']" position="after">
+                    <field name="empl_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

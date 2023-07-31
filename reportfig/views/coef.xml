@@ -1,0 +1,41 @@
+<odoo>
+  <data>
+      <record id="product_template_form_view" model="ir.ui.view">
+          <field name="name">product.template.common.form</field>
+          <field name="model">product.template</field>
+          <field name="inherit_id" ref="product.product_template_form_view"/>
+          <field name="arch" type="xml">
+              <xpath expr="//page[@name='inventory']" position="after">
+                    <page string="coefficient">
+                        <group>
+                            <field name="x_fonderie" style="width:10%" widget="integer" min="0" max="9" />
+                            <field name="y_fonderie" style="width:10%" widget="integer" min="0" max="9" string=""/>
+  <!--                           <field name="z_fonderie" />  -->
+                        </group>
+                        <group>
+                            <field name="x_ebarbage" style="width:10%" widget="integer" min="0" max="9"/>
+                            <field name="y_ebarbage" style="width:10%" widget="integer" min="0" max="9" string=""/>
+  <!--                          <field name="z_ebarbage" />  -->
+                        </group>
+                        <group>
+                            <field name="x_soudure" style="width:10%" widget="integer" min="0" max="9"/>
+                            <field name="y_soudure" style="width:10%" widget="integer" min="0" max="9" string=""/>
+  <!--                      <field name="z_soudure" /> -->
+                        </group>
+                        <group>
+                            <field name="x_souscouche" style="width:10%" widget="integer" min="0" max="9"/>
+                            <field name="y_souscouche" style="width:10%" widget="integer" min="0" max="9" string=""/>
+  <!--                      <field name="z_souscouche" /> -->
+                        </group>
+                        <group>
+                            <field name="x_peinture" style="width:10%" widget="integer" min="0" max="9"/>
+                            <field name="y_peinture" style="width:10%" widget="integer" min="0" max="9" string=""/>
+  <!--                      <field name="z_peinture" /> -->
+                        </group>
+                    </page>
+              </xpath>
+          </field>
+      </record>
+  </data>
+</odoo>
+

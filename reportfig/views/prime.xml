@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+<record model="ir.ui.view" id="prime_form">
+    <field name="name">Prime de Production Form</field>
+    <field name="model">prime.prod</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="contract_id" style="width:30%"/>
+                    <field name="sbh" style="width:30%"/>
+                    <field name="NbrProd" style="width:30%"/>
+                    <field name="date" style="width:30%"/>
+                    <field name="prime_amount" style="width:30%"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="prime_list">
+    <field name="name">Prime de Production Liste</field>
+    <field name="model">prime.prod</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="contract_id" string='Employé' decoration-warning="contract_id" widget="badge"/>
+            <field name="sbh" string='Salaire de base par heure (Ar)' widget="badge"/>
+            <field name="NbrProd" string='Qtt Article Produit' decoration-info="NbrProd" widget="badge"/>
+            <field name="date" string='Mois'/>
+            <field name="prime_amount" string='Prime(Ar)' decoration-success="prime_amount" widget="badge"/>
+        </tree>
+    </field>
+</record>
+
+ <!-- vue recherche et groupe by -->
+<record id="prime_search" model="ir.ui.view">
+        <field name="name">prime search</field>
+        <field name="model">prime.prod</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="contract_id"/>
+                <group expand="0" string="Group By">
+                     <filter string="Employee" name="contract_id" domain="[]" context="{'group_by': 'contract_id'}"/>
+                     <filter string="Date" name="date" domain="[]" context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+     <!--action menu-->
+        <record model="ir.actions.act_window" id="prime_action_window">
+            <field name="name">Prime de Production</field>
+            <field name="res_model">prime.prod</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+     <!-- ajout menu dans le module RH -->
+        <menuitem id="menu_prime_prod"
+                  name="Prime Prod"
+                  parent ="hr.menu_hr_root"
+                  sequence="10"/>
+
+     <!-- ajout sous menu  -->
+        <menuitem name="Prime production"
+                  id="sous_menu_prime_prod"
+                  parent="menu_prime_prod"
+                  sequence="1"
+                  action="prime_action_window"/>
+   </data>
+</odoo>
