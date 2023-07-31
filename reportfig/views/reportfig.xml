@@ -1,0 +1,61 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="reportfig.list">
+      <field name="name">reportquantite</field>
+      <field name="model">reportfig.reportfig</field>
+      <field name="arch" type="xml">
+          <tree>
+              <field name="NFabric_id"/>
+              <field name="name_id"/>
+              <field name="postDeTravail_id"/>
+              <field name="QttCommander" decoration-success="QttCommander" widget="badge"/>
+              <field name="QuantitePrd" decoration-info="QuantitePrd" widget="badge"/>
+              <field name="client" decoration-warning="client" widget="badge"/>
+              <field name="art_id"/>
+              <field name="dateAddProd" optional="hide"/>
+              <field name="origin"/>
+              <field name="Urgence" decoration-success="Urgence == 'U'" decoration-info="Urgence in ('M','B')" widget="badge"/>
+              <field name="result" optional="hide"/>
+              <field name="dateDebut" optional="hide"/>
+              <field name="dateFin" optional="hide"/>
+              <field name="Etat" decoration-success="Etat == 'L'" decoration-info="Etat == 'T'"
+                decoration-danger="Etat == 'A'" widget="badge" optional="hide"/>
+              <field name="Quotat" optional="hide"/>
+              <field name="NbrDeFiche" optional="hide"/>
+              <field name="ResteFiche" optional="hide"/>
+          </tree>
+      </field>
+    </record>
+    <!-- definition vue de recherche -->
+    <record id="reportfig_search" model="ir.ui.view">
+        <field name="name">reportfig search</field>
+        <field name="model">reportfig.reportfig</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="origin"/>
+                <field name="NFabric_id"/>
+                <field name="art_id"/>
+                <group expand="0" string="Group By">
+                     <filter string="Article" name="art_id" domain="[]" context="{'group_by': 'art_id'}"/>
+                     <filter string="Travailleur" name="name_id" domain="[]" context="{'group_by': 'name_id'}"/>
+                     <filter string="Poste de Travail" name="postDeTravail_id" domain="[]" context="{'group_by': 'postDeTravail_id'}"/>
+                     <filter string="Numero de Fabricarion" name="NFabric_id" domain="[]" context="{'group_by': 'NFabric_id'}"/>
+                     <filter string="Date de debut" name="dateDebut" domain="[]" context="{'group_by': 'dateDebut'}"/>
+                     <filter string="Etat de Fabric" name="Etat" domain="[]" context="{'group_by': 'Etat'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!--sous menu -->
+    <record model="ir.actions.act_window" id="reportfig_action_window">
+      <field name="name">Fiche de Fabrication</field>
+      <field name="res_model">reportfig.reportfig</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+      <!--menu et sous menu -->
+    <menuitem id="menu_raport_qtt" parent="mrp.menu_mrp_root" name="rapport"/>
+    <menuitem name="Fiche de Fabric" id="menu_ajoutQtt"
+    parent="menu_raport_qtt" sequence="1" action="reportfig_action_window"/>
+  </data>
+</odoo>

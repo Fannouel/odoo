@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project_view_edit_project_inherit_trello" model="ir.ui.view">
+        <field name="name">project.view.edit.project.inherit.trello</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="///button[@name='action_view_all_rating']" position="after">
+                <button name="sync_project_to_trello" class="oe_stat_button"
+                        icon="fa-retweet" type="object" string="Sync to Trello"/>
+            </xpath>
+            <xpath expr="//field[@name='allowed_portal_user_ids']" position="after">
+                <field name="last_sync_at"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_tsak_view_edit_project_inherit_trello" model="ir.ui.view">
+        <field name="name">project.task.view.edit.project.inherit.trello</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="///button[@name='action_recurring_tasks']" position="after">
+                <button name="sync_task_to_trello" class="oe_stat_button"
+                        icon="fa-retweet" type="object" string="Sync to Trello"/>
+            </xpath>
+            <xpath expr="///field[@name='tag_ids']" position="replace">
+                <field name="tag_ids" domain="[('project_id', '=', project_id)]" widget="many2many_tags"
+                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+            </xpath>
+            <xpath expr="///field[@name='date_last_stage_update']" position="after">
+                <field name="last_sync_at"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_tags_view_trello_tree" model="ir.ui.view">
+        <field name="name">project.tags.tree.view.trello</field>
+        <field name="model">project.tags</field>
+        <field name="inherit_id" ref="project.project_tags_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="///field[@name='name']" position="after">
+                <field name="project_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
