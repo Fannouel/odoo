@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2019 Ecosoft Co., Ltd.
+  License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
+<odoo>
+    <record id="import_mrp_bom_xlsx_template" model="xlsx.template">
+        <field name="res_model">mrp.bom</field>
+        <field name="fname">import_mrp_bom.xlsx</field>
+        <field name="name">Import MRP BOM Template</field>
+        <field name="description">Import MRP BOM</field>
+        <field name="input_instruction">
+            {
+                '__IMPORT__': {
+                    'Sheet1': {
+                        '_HEAD_': {
+                            'C2': 'product_tmpl_id',
+                        },
+                        'bom_line_ids': {
+                            'E6': 'product_id',
+                            'K6': 'product_qty',
+                        }
+                    }
+                },
+                '__PRE_IMPORT__': '${object.excel_import_pre_hook()}'
+            }
+        </field>
+    </record>
+    <function model="xlsx.template" name="load_xlsx_template">
+        <value eval="[ref('import_mrp_bom_xlsx_template')]" />
+    </function>
+</odoo>

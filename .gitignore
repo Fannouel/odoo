@@ -24,3 +24,4 @@ htmlcov/
 .eggs
 .vscode/
 flask_session/
+.venv/

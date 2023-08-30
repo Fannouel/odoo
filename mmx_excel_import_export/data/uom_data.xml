@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- UOM Categories -->
+    <record id="product_uom_categ_bottle" model="uom.category">
+        <field name="name">Bottle</field>
+    </record>
+
+    <record id="product_uom_categ_set" model="uom.category">
+        <field name="name">Set</field>
+    </record>
+
+    <!-- UOM.UOM -->
+    <!-- Units -->
+    <record id="product_uom_bottle" model="uom.uom">
+        <field name="category_id" ref="product_uom_categ_bottle"/>
+        <field name="name">Bottles</field>
+        <field name="factor" eval="1.0"/>
+        <field name="uom_type">reference</field>
+        <field name="rounding">0.00100</field>
+    </record>
+
+    <record id="product_uom_set" model="uom.uom">
+        <field name="category_id" ref="product_uom_categ_set"/>
+        <field name="name">Sets</field>
+        <field name="factor" eval="1.0"/>
+        <field name="uom_type">reference</field>
+    </record>
+</odoo>
