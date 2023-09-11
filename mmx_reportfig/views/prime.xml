@@ -9,7 +9,7 @@
                 <group>
                     <field name="contract_id" style="width:30%"/>
                     <field name="sbh" style="width:30%"/>
-                    <field name="NbrProd" style="width:30%"/>
+                    <field name="prod_nb" style="width:30%"/>
                     <field name="date" style="width:30%"/>
                     <field name="prime_amount" style="width:30%"/>
                 </group>
@@ -25,7 +25,7 @@
         <tree>
             <field name="contract_id" string='Employé' decoration-warning="contract_id" widget="badge"/>
             <field name="sbh" string='Salaire de base par heure (Ar)' widget="badge"/>
-            <field name="NbrProd" string='Qtt Article Produit' decoration-info="NbrProd" widget="badge"/>
+            <field name="prod_nb" string='Qtt Article Produit' decoration-info="prod_nb" widget="badge"/>
             <field name="date" string='Mois'/>
             <field name="prime_amount" string='Prime(Ar)' decoration-success="prime_amount" widget="badge"/>
         </tree>

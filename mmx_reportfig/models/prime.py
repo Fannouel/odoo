@@ -6,7 +6,7 @@ from odoo import models, fields, api
 class Prime(models.Model):
     _name = "prime.prod"
 
-    NbrProd = fields.Float(string="Qtt Article Produit")
+    prod_nb = fields.Float(string="Qtt Article Produit")
     date = fields.Date(string="Mois")
     prime_amount = fields.Float(
         string="Prime(Ar)", compute="_compute_prime", store=True
@@ -24,8 +24,8 @@ class Prime(models.Model):
             else:
                 contract.sbh = 0.0
 
-    @api.depends("sbh", "NbrProd", "contract_id.wage")
+    @api.depends("sbh", "prod_nb", "contract_id.wage")
     def _compute_prime(self):
         for contract in self:
-            prime = (contract.NbrProd * contract.sbh) - contract.contract_id.wage
+            prime = (contract.prod_nb * contract.sbh) - contract.contract_id.wage
             contract.prime_amount = max(prime, 0.0)

@@ -14,17 +14,17 @@
                 '__EXPORT__': {
                     'printfiche': {
                         '_HEAD_': {
-                            'B2':'NFabric_id.display_name${value or ""}#{style=text}',
-                            'F3':'QttCommander${value or ""}',
-                            'H2':'origin${value or ""}#{style=text}',
-                            'H3':'QttCommander${value or ""}',
-                            'J3':'client.display_name${value or ""}#{style=text}',
-                            'D4':'art_id.display_name${value or ""}#{style=text}',
-                            'K6':'dateAddProd${value or ""}',
+                            'B2':'production_id.display_name${value or ""}#{style=text}',
+                            'F3':'product_qty${value or ""}',
+                            'H2':'sale_order_id.display_name${value or ""}#{style=text}',
+                            'H3':'product_qty${value or ""}',
+                            'J3':'partner_id.display_name${value or ""}#{style=text}',
+                            'D4':'product_id.display_name${value or ""}#{style=text}',
+                            'K6':'date${value or ""}',
 
 
                             'F17':'Urgence${value or ""}',
-                            'H17':'Quotat${value or ""}',
+                            'H17':'quota${value or ""}',
                             'J17':'NbrDeFiche${value or ""}',
                        },
                     },

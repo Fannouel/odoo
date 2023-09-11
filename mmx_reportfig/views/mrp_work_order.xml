@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='time_tracking']//field[@name='workcenter_id']" position="after">
-                    <field name="empl_id"/>
+                    <field name="employee_id"/>
                 </xpath>
             </field>
         </record>
