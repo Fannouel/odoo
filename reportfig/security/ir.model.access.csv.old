@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_reportfig_reportfig,reportfig.reportfig,model_reportfig_reportfig,base.group_user,1,1,1,1
-access_suivie_cmd_suivie_cmd,suivie_cmd.suivie_cmd,model_suivie_cmd_suivie_cmd,base.group_user,1,1,1,1
-access_report_suivie_commandView,report.suivie.commandView,model_report_suivie_commandView,base.group_user,1,1,1,1
-access_report_suivie_Affiche,report.suivie.Affiche,model_report_suivie_Affiche,base.group_user,1,1,1,1

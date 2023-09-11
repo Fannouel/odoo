@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_reportfig_reportfig,reportfig.reportfig,model_reportfig_reportfig,base.group_user,1,1,1,1
 access_prime_prod,prime.prod,model_prime_prod,base.group_user,1,1,1,1
+access_order_follow_up_wizard,order.follow.up.wizard,model_order_follow_up_wizard,base.group_user,1,1,1,1

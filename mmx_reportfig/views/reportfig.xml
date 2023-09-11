@@ -1,0 +1,91 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="reportfig_list">
+      <field name="name">reportquantite</field>
+      <field name="model">reportfig.reportfig</field>
+      <field name="arch" type="xml">
+          <tree>
+              <field name="production_id"/>
+              <field name="employee_id"/>
+              <field name="workcenter_id"/>
+              <field name="product_qty" decoration-success="product_qty" widget="badge"/>
+              <field name="qty" decoration-info="qty" widget="badge"/>
+              <field name="partner_id" decoration-warning="partner_id" widget="badge"/>
+              <field name="product_id"/>
+              <field name="date" optional="hide"/>
+              <field name="sale_order_id"/>
+              <field name="Urgence" decoration-success="Urgence == 'U'" decoration-info="Urgence in ('N','L')" widget="badge"/>
+              <field name="result" optional="hide"/>
+              <field name="dateDebut" optional="hide"/>
+              <field name="dateFin" optional="hide"/>
+              <field name="state" decoration-success="state == 'L'" decoration-info="state == 'T'"
+                decoration-danger="state == 'A'" widget="badge" optional="hide"/>
+              <field name="quota" optional="hide"/>
+              <field name="NbrDeFiche" optional="hide"/>
+              <field name="ResteFiche" optional="hide"/>
+          </tree>
+      </field>
+    </record>
+    <!-- search view definition -->
+    <record id="reportfig_search" model="ir.ui.view">
+        <field name="name">reportfig search</field>
+        <field name="model">reportfig.reportfig</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="sale_order_id"/>
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <group expand="0" string="Group By">
+                     <filter string="Article" name="product_id" domain="[]" context="{'group_by': 'product_id'}"/>
+                     <filter string="Travailleur" name="employee_id" domain="[]" context="{'group_by': 'employee_id'}"/>
+                     <filter string="Poste de Travail" name="workcenter_id" domain="[]" context="{'group_by': 'workcenter_id'}"/>
+                     <filter string="Numero de Fabricarion" name="production_id" domain="[]" context="{'group_by': 'production_id'}"/>
+                     <filter string="Date de debut" name="dateDebut" domain="[]" context="{'group_by': 'dateDebut'}"/>
+                     <filter string="state de Fabric" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- form view definition -->
+    <record model="ir.ui.view" id="reportfig_form">
+      <field name="name">reportfig form</field>
+      <field name="model">reportfig.reportfig</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="production_id"/>
+              <field name="workcenter_id"/>
+              <field name="partner_id"/>
+              <field name="product_id"/>
+              <field name="sale_order_id"/>
+              <field name="employee_id"/>
+              <field name="product_qty"/>
+              <field name="qty"/>
+              <field name="date"/>
+              <field name="Urgence"/>
+              <field name="result"/>
+              <field name="dateDebut"/>
+              <field name="dateFin"/>
+              <field name="state"/>
+              <field name="quota"/>
+              <field name="NbrDeFiche"/>
+              <field name="ResteFiche"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- sub menu action -->
+    <record model="ir.actions.act_window" id="reportfig_action_window">
+      <field name="name">Fiche de Fabrication</field>
+      <field name="res_model">reportfig.reportfig</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_report_qty" parent="mrp.menu_mrp_root" name="Report"/>
+    <menuitem name="Fiche de Fabric" id="menu_add_qty"
+    parent="menu_report_qty" sequence="1" action="reportfig_action_window"/>
+  </data>
+</odoo>

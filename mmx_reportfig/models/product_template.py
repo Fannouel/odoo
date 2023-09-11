@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 
 # class pour le calcule de coeffitient
-class coef(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     # variable fonderie
