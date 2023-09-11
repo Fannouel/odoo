@@ -26,6 +26,6 @@
         </field>
     </record>
     <function model="xlsx.template" name="load_xlsx_template">
-        <value eval="[ref('import_mrp_bom_xlsx_template')]" />
+        <value eval="[ref('import_mrp_bom_xlsx_template')]" /> 
     </function>
 </odoo>

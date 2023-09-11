@@ -6,8 +6,8 @@ from odoo import api, fields, models
 
 
 class SuccessWizard(models.TransientModel):
-    _name = 'success.wizard'
+    _name = "success.wizard"
 
 
 class SyncWizard(models.TransientModel):
-    _name = 'sync.wizard'
+    _name = "sync.wizard"

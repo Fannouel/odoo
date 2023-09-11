@@ -31,7 +31,10 @@ class MrpBom(models.Model):
             if product:
                 value = product[0].product_tmpl_id.display_name
             else:
-                name = row_data[5]
+                name_ch = row_data[5]
+                # import pdb;pdb.set_trace()
+                env = request.env
+                name = request.env["chinese.dico"].translate_this(env, name_ch)
                 uom_id = None
                 uom = row_data[9]
                 if uom != "PCS":
@@ -41,9 +44,9 @@ class MrpBom(models.Model):
                         raise ValidationError(_("UOM not found: %s") % uom)
                 else:
                     uom_id = request.env.ref("uom.product_uom_unit").id
-                value = (
-                    request.env["product.product"]
-                    .create(
+
+                value_create = (
+                    request.env["product.product"].create(
                         {
                             "default_code": value,
                             "name": name,
@@ -53,11 +56,20 @@ class MrpBom(models.Model):
                             "uom_po_id": uom_id,
                         }
                     )
-                    .product_tmpl_id.display_name
+                    # .product_tmpl_id.display_name
                 )
+                value = value_create.product_tmpl_id.display_name
                 # .product_tmpl_id.display_name
                 # Otherwise product won't be saved
+                if name:
+                    value_create.with_context(lang="fr_FR").name = name
+                    value_create.with_context(lang="en_US").name = name
+
+                if name_ch:
+                    value_create.with_context(lang="zh_CN").name = name_ch
+
                 request.env.cr.commit()
+
         elif field == "bom_line_ids/product_qty":
             aeval = Interpreter()
             value = aeval.eval(str(value))

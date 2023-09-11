@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "website": "https://www.mmxmodels.com",
     "category": "Tools",
-    "depends": ["excel_import_export", "mrp"],
+    "depends": ["excel_import_export", "mrp", "mmx_chinese_dictionary"],
     "data": [
         "import_mrp_bom/menu_action.xml",
         "import_mrp_bom/templates.xml",

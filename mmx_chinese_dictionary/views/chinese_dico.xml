@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="dictionary_view_tree" model="ir.ui.view">
+        <field name="name">dictionary.view.tree</field>
+        <field name="model">chinese.dico</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="source"/>
+                <field name="translate"/>
+                <field name="term"></field>
+            </tree>
+        </field>
+    </record>
+    <record id="dictionary_view_form" model="ir.ui.view">
+        <field name="name">dictionary.view.form</field>
+        <field name="model">chinese.dico</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="source"></field>
+                        <field name="translate"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_dictionary" model="ir.actions.act_window">
+        <field name="name">Dictionary</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">chinese.dico</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem id="dico_menu"
+              name="Dictionary"
+              action="action_dictionary"
+              sequence="10"/>
+
+    <record model="ir.ui.view" id="view_product_template_form_inherit_btn_trns">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>  
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <button string="Translate" type="object" name="btn_action" class="oe_highlight" context="{'value': name}"/>
+            </field>
+        </field>
+    </record>
+
+    <!--<act_window
+            id="action_translate_term"
+            name="Translate"
+            res_model="chinese.dico" 
+            src_model="product.template"
+            view_mode="form" 
+            multi="True" 
+            target="new"
+        />-->
+</odoo>

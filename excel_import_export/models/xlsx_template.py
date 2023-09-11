@@ -369,7 +369,6 @@ self['{}'] = self.env['{}'].search(self.safe_domain(self.domain))
             input_dict = literal_eval(rec.input_instruction.strip())
             rec.post_import_hook = input_dict.get("__POST_IMPORT__")
 
-
     def _compute_input_pre_import_hook(self):
         self = self.with_context(compute_from_input=True)
         for rec in self:

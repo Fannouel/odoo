@@ -165,7 +165,9 @@ class XLSXImport(models.AbstractModel):
                 try:
                     row, col = co.pos2idx(rc)
                     row_data = st.col_values(col)
-                    value = co._get_cell_nvalue(st.cell(row, col), field_type=field_type)
+                    value = co._get_cell_nvalue(
+                        st.cell(row, col), field_type=field_type
+                    )
                 except Exception:
                     value = False
                 eval_context = self.get_eval_context(model=model, value=value)
@@ -173,8 +175,10 @@ class XLSXImport(models.AbstractModel):
                     value = str(safe_eval(key_eval_cond, eval_context))
                 if val_eval_cond:
                     value = str(safe_eval(val_eval_cond, eval_context))
-                if row_data and getattr(self.env[model], 'excel_import_pre_hook'):
-                    value = self.env[model].excel_import_pre_hook(field, row_data[col - 1], row_data)
+                if row_data and getattr(self.env[model], "excel_import_pre_hook"):
+                    value = self.env[model].excel_import_pre_hook(
+                        field, row_data[col - 1], row_data
+                    )
 
                 out_st.write(0, col_idx, field)  # Next Column
                 out_st.write(1, col_idx, value)  # Next Value
@@ -192,12 +196,16 @@ class XLSXImport(models.AbstractModel):
                     # Data
                     i = 1
                     for value in vals[field]:
-                        if getattr(self.env[model], 'excel_import_pre_hook'):
-                            row_id = [key for key in worksheet.get(line_field, {}).keys()][0]
+                        if getattr(self.env[model], "excel_import_pre_hook"):
+                            row_id = [
+                                key for key in worksheet.get(line_field, {}).keys()
+                            ][0]
                             row, col = co.pos2idx(row_id)
                             row = row + i - 1
                             row_data = st.row_values(row)
-                            value = self.env[model].excel_import_pre_hook(field, value, row_data)
+                            value = self.env[model].excel_import_pre_hook(
+                                field, value, row_data
+                            )
 
                         out_st.write(i, col_idx, value)
                         i += 1
@@ -290,7 +298,6 @@ class XLSXImport(models.AbstractModel):
                 safe_eval(code, eval_context)
         except Exception as e:
             raise ValidationError(_("Post import operation error\n%s") % e) from e
-
 
     def _pre_import_operation(self, record, operation):
         """Run python code before import"""

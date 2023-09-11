@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="import_dico_xlsx_template" model="xlsx.template">
+
+    </record>
+    
+</odoo>
