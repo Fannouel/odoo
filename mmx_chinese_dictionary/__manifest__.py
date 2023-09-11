@@ -17,5 +17,5 @@
         "views/chinese_dico.xml",
         "views/menu.xml",
     ],
-    "installable": True,
+    "installable": True, 
 }
