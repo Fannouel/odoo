@@ -3,7 +3,7 @@ from odoo import models, fields, api, _
 
 
 class OrderFollowUpWizard(models.TransientModel):
-    _name = "order.follow.up.wizard"
+    _name = "order.follow.up.wizard2"
     _description = "Report Wizard for order follow up"
 
     sale_order_id = fields.Many2one('sale.order', string=_("Sale Order"))
@@ -21,11 +21,18 @@ class OrderFollowUpWizard(models.TransientModel):
             <th>Qte command</th>
             <th>Client</th>
             <th>Urgence</th>
-            <th>Fonderie</th>
+            <th>coulee</th>
             <th>Ebarbage</th>
-            <th>Soudure</th>
-            <th>Sous couche</th>
-            <th>Peinture</th>
+            <th>peinture d'apres</th>
+            <th>polissage</th>
+            <th>peinture 1k(1)</th>
+            <th>polissage</th>
+            <th>peinture 1k(2)</th>
+            <th>controleur</th>
+            <th>peinture 2k</th>
+            <th>papier collant</th>
+            <th>pistolet1</th>
+            <th>peinture pinceau</th>
         </tr>
         """
 
@@ -71,11 +78,18 @@ class OrderFollowUpWizard(models.TransientModel):
 
         # Create a dictionary to store the sums of qty for each work center
         workcenter_sums = {
-            "FONDERIE": 0,
+            "COULEE": 0,
             "EBARBAGE": 0,
-            "SOUDURE": 0,
-            "SOUSCOUCHE": 0,
-            "PEINTRE": 0,
+            "PEINTURE_D_APRES": 0,
+            "POLISSAGE": 0,
+            "PEINTURE_1k(1)": 0, 
+            "POLISSAGE": 0,
+            "PEINTURE_1k(2)": 0,
+            "CONTROLEUR": 0,
+            "PPEINTURE_2k": 0,
+            "PAPIER_COLLANT": 0,
+            "PISTOLET1": 0,
+            "PEINTURE_PINCEAU": 0,
         }
 
         # Iterate through the qty_mapping dictionary and add rows for each group with the values
@@ -92,11 +106,17 @@ class OrderFollowUpWizard(models.TransientModel):
                 <td>{product_qty}</td>
                 <td>{partner_name}</td>
                 <td>{urgence_name}</td>
-                <td>{qty_values.get("FONDERIE", 0)}</td>
+                <td>{qty_values.get("COULEE", 0)}</td>
                 <td>{qty_values.get("EBARBAGE", 0)}</td>
-                <td>{qty_values.get("SOUDURE", 0)}</td>
-                <td>{qty_values.get("SOUSCOUCHE", 0)}</td>
-                <td>{qty_values.get("PEINTRE", 0)}</td>
+                <td>{qty_values.get("PEINTURE_D_APRES", 0)}</td>
+                <td>{qty_values.get("POLISSAGE", 0)}</td>
+                <td>{qty_values.get("PEINTURE_1k(1)", 0)}</td>
+                <td>{qty_values.get("POLISSAGE", 0)}</td>
+                <td>{qty_values.get("CONTROLEUR", 0)}</td>
+                <td>{qty_values.get("PPEINTURE_2k", 0)}</td>
+                <td>{qty_values.get("PAPIER_COLLANT", 0)}</td>
+                <td>{qty_values.get("PISTOLET1", 0)}</td>
+                <td>{qty_values.get("PEINTURE_PINCEAU", 0)}</td>
                 </tr>"""
 
             # Update the sums for each work center

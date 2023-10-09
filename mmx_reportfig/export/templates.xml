@@ -3,12 +3,12 @@
   Copyright 2019 Ecosoft Co., Ltd.
   License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
-    <record id="reportfig_xlsx_template" model="xlsx.template">
+    <record id="reportfig_xlsx_template1" model="xlsx.template">
         <field name="res_model">reportfig.reportfig</field>
-        <field name="fname">printfiche.xlsx</field>
-        <field name="name">Print Fiche (import/export)</field>
+        <field name="fname">grand_fig.xlsx</field>
+        <field name="name">Grande Figurine (import/export)</field>
         <field name="description">impression fiche de fabrication</field>
-        <field name="export_action_id" eval="ref('action_reportfig_export_xlsx')"/>
+        <field name="export_action_id" eval="ref('action_reportfig_export_xlsx1')"/>
         <field name="input_instruction">
             {
                 '__EXPORT__': {
@@ -23,9 +23,41 @@
                             'K6':'date${value or ""}',
 
 
-                            'F17':'Urgence${value or ""}',
-                            'H17':'quota${value or ""}',
-                            'J17':'NbrDeFiche${value or ""}',
+                            'F19':'Urgence${value or ""}',
+                            'H19':'quota${value or ""}',
+                            'J19':'NbrDeFiche${value or ""}',
+                       },
+                    },
+                },
+
+            }
+        </field>
+    </record>
+    <!-- template pour petite figurine-->
+
+    <record id="reportfig_xlsx_template2" model="xlsx.template">
+        <field name="res_model">reportfig.reportfig</field>
+        <field name="fname">petite_fig.xlsx</field>
+        <field name="name">Petite Figurine (import/export)</field>
+        <field name="description">impression fiche de fabrication</field>
+        <field name="export_action_id" eval="ref('action_reportfig_export_xlsx2')"/>
+        <field name="input_instruction">
+            {
+                '__EXPORT__': {
+                    'printfiche': {
+                        '_HEAD_': {
+                            'B2':'production_id.display_name${value or ""}#{style=text}',
+                            'F3':'product_qty${value or ""}',
+                            'H2':'sale_order_id.display_name${value or ""}#{style=text}',
+                            'H3':'product_qty${value or ""}',
+                            'J3':'partner_id.display_name${value or ""}#{style=text}',
+                            'D4':'product_id.display_name${value or ""}#{style=text}',
+                            'K6':'date${value or ""}',
+
+
+                            'F12':'Urgence${value or ""}',
+                            'H12':'quota${value or ""}',
+                            'J12':'NbrDeFiche${value or ""}',
                        },
                     },
                 },
@@ -34,6 +66,9 @@
         </field>
     </record>
     <function model="xlsx.template" name="load_xlsx_template">
-        <value eval="[ref('reportfig_xlsx_template')]" />
+        <value eval="[ref('reportfig_xlsx_template1')]" />
+    </function>
+    <function model="xlsx.template" name="load_xlsx_template">
+        <value eval="[ref('reportfig_xlsx_template2')]" />
     </function>
 </odoo>

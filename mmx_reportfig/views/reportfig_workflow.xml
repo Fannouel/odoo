@@ -1,0 +1,67 @@
+<odoo>
+    <data noupdate="1">
+        <record id="activity_fonderie" model="workflow.activity">
+            <field name="name">FONDERIE</field>
+            <field name="completed_fonderie">FONDERIE</field>
+        </record>
+
+        <record id="activity_ebarbage" model="workflow.activity">
+            <field name="completed_ebarbage">EBARBAGE</field>
+        </record>
+
+        <record id="activity_soudure" model="workflow.activity">
+            <field name="completed_soudure">SOUDURE</field>
+        </record>
+
+        <record id="activity_souscouche" model="workflow.activity">
+            <field name="completed_souscouche">SOUSCOUCHE</field>
+        </record>
+
+        <!-- Définissez d'autres activités pour SOUDURE, SOUSCOUCHE et PEINTRE -->
+
+        <record id="workflow_reportfig" model="workflow">
+            <field name="name">Reportfig Workflow</field>
+            <field name="model_id" ref="model_reportfig_reportfig"/>
+            <field name="on_create">True</field>
+        </record>
+        
+        <record id="workflow_reportfig_fonderie" model="workflow.transition">
+            
+            <field name="act_from" ref="mmx_reportfig.activity_fonderie"/>
+            <field name="act_to" ref="mmx_reportfig.activity_ebarbage"/>
+            <field name="signal">fonderie_to_ebarbage</field>
+            <field name="condition">"completed_fonderie" in self and self.completed_fonderie == True</field>
+        </record>
+        <!--
+        <record id="workflow_transition_fonderie_to_ebarbage" model="workflow.transition">
+            <field name="act_from" ref="mon_module.activity_fonderie"/>
+            <field name="act_to" ref="mon_module.activity_ebarbage"/>
+            <field name="signal">fonderie_to_ebarbage</field>
+        </record>
+        -->
+        <record id="workflow_reportfig_ebarbage" model="workflow.transition">
+           
+            <field name="act_from" ref="mmx_reportfig.activity_ebarbage"/>
+            <field name="act_to" ref="mmx_reportfig.activity_soudure"/>
+            <field name="signal">ebarbage_to_soudure</field>
+            <field name="condition">"completed_ebarbage" in self and self.completed_ebarbage == True</field>
+        </record>
+
+        <record id="workflow_reportfig_soudure" model="workflow.transition">
+            
+            <field name="act_from" ref="mmx_reportfig.activity_soudure"/>
+            <field name="act_to" ref="mmx_reportfig.activity_sosucouche"/>
+            <field name="signal">soudure_to_souscouche</field>
+            <field name="condition">"completed_soudure" in self and self.completed_soudure == True</field>
+        </record>
+
+        <record id="workflow_reportfig_souscouche" model="workflow.transition">
+            
+            <field name="act_from" ref="mmx_reportfig.activity_souscouche"/>
+            <field name="act_to" ref="mmx_reportfig.activity_peintre"/>
+            <field name="signal">souscouche_to_peintre</field>
+            <field name="condition">"completed_souscouche" in self and self.completed_souscouche == True</field>
+        </record>
+    </data>
+</odoo>
+<!-- Définissez d'autres transitions pour les autres étapes de la même manière -->

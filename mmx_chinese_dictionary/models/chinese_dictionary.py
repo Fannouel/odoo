@@ -8,7 +8,7 @@ class BtnTranslate(models.Model):
     def btn_action(self):
         value = self.env.context.get("value")
         if value:
-            val = ChineseDico.translation(value)
+            val = ChineseDico.translate_this(value)
             self.write({"name": val})
 
 

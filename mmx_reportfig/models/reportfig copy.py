@@ -14,7 +14,7 @@ class Reportfig(models.Model):
     production_id = fields.Many2one("mrp.production", string=_("Production"))
     product_id = fields.Many2one("product.product", string=_("Product"), related="production_id.product_id", store=True)
     sale_order_id = fields.Many2one("sale.order", string=_("Sale Order"), related="production_id.sale_order_id")
-    workcenter_id = fields.Many2one("mrp.workcenter", string=_("Work Center"), store=True)
+    workcenter_id = fields.Many2one("mrp.workcenter", string=_("Work Center"))
     result = fields.Float(string="Quantite*Coef", store=True, compute='_compute_result', readonly=True)
     partner_id = fields.Many2one("res.partner", string=_("Partner"), related="sale_order_id.partner_id")
     dateDebut = fields.Date(string="Date Debut")
@@ -40,17 +40,23 @@ class Reportfig(models.Model):
 
     numero_de_fiche = fields.Integer(string="Fiche numero")
     
-    ######################## 
-    # Champ séquentiel pour contrôler l'ordre des étapes
+    """    
+    last_completed_step = fields.Selection(
+        [("FONDERIE", "FONDERIE"), ("EBARBAGE", "EBARBAGE"), ("SOUDURE", "SOUDURE"), ("SOUSCOUCHE", "SOUSCOUCHE"), ("PEINTRE", "PEINTRE")],
+        string="Dernière étape complétée",
+        default="FONDERIE",
+        compute="_check_workcenter_order",
+        store=True,
+    )
     
+    # ajout champ boolen
     completed_fonderie = fields.Boolean(string="Fonderie complétée", default=False)
     completed_ebarbage = fields.Boolean(string="Ebarbage complété", default=False)
     completed_soudure = fields.Boolean(string="Soudure complétée", default=False)
     completed_souscouche = fields.Boolean(string="Souscouche complétée", default=False)
-    completed_peinture = fields.Boolean(string="Peinture complétée", default=False)
-    
+    completed_peintre = fields.Boolean(string="Peintre complété", default=False)
+    """
     # fonction qui fait la caclul des coef des article avec la Qtt produite
-    
     @api.onchange("qty")
     def _onchange_qty(self):
         if self.workcenter_id and self.product_id:
@@ -116,46 +122,74 @@ class Reportfig(models.Model):
                 ], limit=1)
                 if existing_record:
                     raise ValidationError("Fiche déjà enregistrée pour cette production.")
-    
-    ############  verification etape de saisie 
-    
-    # Autres champs et méthodes
-  
-    @api.onchange('workcenter_id')
-    def _onchange_workcenter_id(self):
-        if self.workcenter_id.name == 'FONDERIE':
-            self.completed_fonderie = True
-            self.completed_ebarbage = False
-            self.completed_soudure = False
-            self.completed_souscouche = False
-            self.completed_peinture = False
-        elif self.workcenter_id.name == 'EBARBAGE':
-            if not self.completed_fonderie:
-                raise ValidationError(_("Veuillez compléter l'étape FONDERIE avant de passer à cette étape."))
-            self.completed_ebarbage = True
-            self.completed_soudure = False
-            self.completed_souscouche = False
-            self.completed_peinture = False
-        elif self.workcenter_id.name == 'SOUDURE':
-            if not self.completed_fonderie or not self.completed_ebarbage:
-                raise ValidationError(_("Veuillez compléter les étapes précédentes avant de passer à SOUDURE."))
-            self.completed_soudure = True
-            self.completed_souscouche = False
-            self.completed_peinture = False
-        elif self.workcenter_id.name == 'SOUSCOUCHE':
-            if not self.completed_fonderie or not self.completed_ebarbage or not self.completed_soudure:
-                raise ValidationError(_("Veuillez compléter les étapes précédentes avant de passer à SOUSCOUCHE."))
-            self.completed_souscouche = True
-            self.completed_peinture = False
-        elif self.workcenter_id.name == 'PEINTRE':
-            if not self.completed_fonderie or not self.completed_ebarbage or not self.completed_soudure or not self.completed_souscouche:
-                raise ValidationError(_("Veuillez compléter les étapes précédentes avant de passer à PEINTURE."))
-            self.completed_peinture = True
-   
-        
-        
 
+    
+    # Contrainte pour vérifier l'ordre des étapes
+"""   
+    @api.constrains('last_completed_step', 'workcenter_id')
+    def _check_workcenter_order(self):
+        for record in self:
+            workcenter_order = {
+                "FONDERIE": 1,
+                "EBARBAGE": 2,
+                "SOUDURE": 3,
+                "SOUSCOUCHE": 4,
+                "PEINTRE": 5,
+            }
 
+            current_step = record.workcenter_id.name
+            last_completed_step = record.last_completed_step
+
+            if current_step not in workcenter_order or last_completed_step not in workcenter_order:
+                # Gérer le cas où une étape n'est pas définie dans le dictionnaire
+                continue
+
+            if current_step == "FONDERIE":
+                if last_completed_step != "FONDERIE":
+                    raise ValidationError(f"Fiche {current_step} ne peut pas être enregistrée. Étape incorrecte : {last_completed_step}")
+            else:
+                # Trouver la dernière étape complétée
+                last_completed_step_order = workcenter_order[last_completed_step]
+
+                # Vérifier si la nouvelle étape est la suivante dans l'ordre
+                if workcenter_order[current_step] != last_completed_step_order + 1:
+                    missing_steps = [step_name for step_name, step_order in workcenter_order.items() if step_order == last_completed_step_order + 1]
+                    missing_step_names_str = ", ".join(missing_steps)
+                    raise ValidationError(f"Fiche {current_step} peut pas être enregistré. une Étapes manquantes : {missing_step_names_str}")
+    
+
+    @api.constrains('last_completed_step', 'workcenter_id')
+    def _check_workcenter_order(self):
+        for record in self:
+            workcenter_order = {
+                "FONDERIE": 1,
+                "EBARBAGE": 2,
+                "SOUDURE": 3,
+                "SOUSCOUCHE": 4,
+                "PEINTRE": 5,
+            }
+
+            current_step = record.workcenter_id.name
+            last_completed_step = record.last_completed_step
+
+            if current_step not in workcenter_order or last_completed_step not in workcenter_order:
+                # Gérer le cas où une étape n'est pas définie dans le dictionnaire
+                continue
+
+            if current_step == "FONDERIE":
+                if last_completed_step != "FONDERIE":
+                    raise ValidationError(f"Fiche {current_step} ne peut pas être enregistrée. Étape incorrecte : {last_completed_step}")
+            else:
+                # Trouver la dernière étape complétée
+                last_completed_step_order = workcenter_order[last_completed_step]
+
+                # Vérifier si la nouvelle étape est la suivante dans l'ordre
+                if workcenter_order[current_step] != last_completed_step_order + 1:
+                    missing_steps = [step_name for step_name, step_order in workcenter_order.items() if step_order == last_completed_step_order + 1]
+                    missing_step_names_str = ", ".join(missing_steps)
+                    raise ValidationError(f"Fiche {current_step} ne peut pas être enregistrée. Étape incorrecte : {last_completed_step}. Étapes manquantes : {missing_step_names_str}")
+"""
+    
 
 
 

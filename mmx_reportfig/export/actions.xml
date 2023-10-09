@@ -4,8 +4,8 @@
   License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).-->
 <odoo>
 
-    <record id="action_reportfig_export_xlsx" model="ir.actions.act_window">
-        <field name="name">Export Excel</field>
+    <record id="action_reportfig_export_xlsx1" model="ir.actions.act_window">
+        <field name="name">Export Grande Figurine</field>
         <field name="res_model">export.xlsx.wizard</field>
         <field name="binding_view_types">list,form</field>
         <field name="binding_model_id" ref="mmx_reportfig.model_reportfig_reportfig" />
@@ -14,11 +14,27 @@
         <field name="context">
             {
                 'template_domain': [('res_model', '=', 'reportfig.reportfig'),
-                                    ('fname', '=', 'printfiche.xlsx'),
+                                    ('fname', '=', 'grand_fig.xlsx'),
                                     ('gname', '=', False)],
 
             }
+            
         </field>
     </record>
 
+    <record id="action_reportfig_export_xlsx2" model="ir.actions.act_window">
+        <field name="name">Export Petite Figurine</field>
+        <field name="res_model">export.xlsx.wizard</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="binding_model_id" ref="mmx_reportfig.model_reportfig_reportfig" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">
+            {
+                'template_domain': [('res_model', '=', 'reportfig.reportfig'),
+                                    ('fname', '=', 'petite_fig.xlsx'),
+                                    ('gname', '=', False)],
+            }
+        </field>
+    </record>
 </odoo>

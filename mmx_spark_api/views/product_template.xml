@@ -7,9 +7,10 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <field name="default_code" position="after">
-                    <field name="erpdev_id" string="Dev ERP Id"/>
+                    
                 </field>
             </field>
         </record>
     </data>
 </odoo>
+        

@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <!-- Action de rapport pivot -->
+        <record model="ir.actions.server" id="action_reportfig_pivot">
+            <field name="name">Rapport Tableau Croisé</field>
+            <field name="model_id" ref="model_reportfig_reportfig" />
+            <field name="state">code</field>
+            <field name="code">{
+                'type': 'ir.actions.act_window',
+                'res_model': 'reportfig.reportfig',
+                'view_mode': 'pivot',
+                'views': [(False, 'pivot')],
+                'target': 'current',
+                'context': {
+                    'pivot': {
+                        'group_by': ['workcenter_id','production_id', 'employee_id','product_id'],
+                        'measures': ['result:sum','product_qty:sum','qty:sum','partner_id:count'],
+                        'columns': ['date']
+                    }
+                }
+            }</field>
+        </record>
+
+        <!-- Action de menu -->
+        <record model="ir.actions.act_window" id="menu_reportfig_pivot">
+            <field name="name">Resumé Somme des Quantités produit par les travailleurs</field>
+            <field name="res_model">reportfig.reportfig</field>
+            <field name="view_mode">pivot</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Cliquez sur "Créer" pour générer le rapport tableau croisé.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem name="Resumé Quantité produit" 
+                    id="menu_reportfig_pivot_main"
+                    parent="menu_report_qty" 
+                    sequence="4" 
+                    action="menu_reportfig_pivot"/>
+    </data>
+</odoo>

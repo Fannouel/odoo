@@ -19,12 +19,13 @@
               <field name="result" optional="hide"/>
               <field name="dateDebut" optional="hide"/>
               <field name="dateFin" optional="hide"/>
-              <field name="state" decoration-success="state == 'L'" decoration-info="state == 'T'"
-                decoration-danger="state == 'A'" widget="badge" optional="hide"/>
+              <field name="state_fabric" decoration-success="state_fabric == 'L'" decoration-info="state_fabric == 'T'"
+                decoration-danger="state_fabric == 'A'" widget="badge" optional="hide"/>
               <field name="quota" optional="hide"/>
               <field name="NbrDeFiche" optional="hide"/>
               <field name="ResteFiche" optional="hide"/>
-          </tree>
+              <field name="numero_de_fiche" optional="hide"/>
+            </tree>
       </field>
     </record>
     <!-- search view definition -->
@@ -42,7 +43,7 @@
                      <filter string="Poste de Travail" name="workcenter_id" domain="[]" context="{'group_by': 'workcenter_id'}"/>
                      <filter string="Numero de Fabricarion" name="production_id" domain="[]" context="{'group_by': 'production_id'}"/>
                      <filter string="Date de debut" name="dateDebut" domain="[]" context="{'group_by': 'dateDebut'}"/>
-                     <filter string="state de Fabric" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                     <filter string="state de Fabric" name="state_fabric" domain="[]" context="{'group_by': 'state_fabric'}"/>
                 </group>
             </search>
         </field>
@@ -68,10 +69,11 @@
               <field name="result"/>
               <field name="dateDebut"/>
               <field name="dateFin"/>
-              <field name="state"/>
+              <field name="state_fabric"/>
               <field name="quota"/>
               <field name="NbrDeFiche"/>
               <field name="ResteFiche"/>
+              <field name="numero_de_fiche"/>
             </group>
           </sheet>
         </form>
@@ -84,8 +86,14 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_report_qty" parent="mrp.menu_mrp_root" name="Report"/>
-    <menuitem name="Fiche de Fabric" id="menu_add_qty"
-    parent="menu_report_qty" sequence="1" action="reportfig_action_window"/>
+    <menuitem id="menu_report_qty" 
+              parent="mrp.menu_mrp_root" 
+              name="Report"/>
+
+    <menuitem name="Fiche de Fabric" 
+              id="menu_add_qty"
+              parent="menu_report_qty" 
+              sequence="1" 
+              action="reportfig_action_window"/>
   </data>
 </odoo>

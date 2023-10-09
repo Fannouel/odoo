@@ -18,18 +18,49 @@
             </field>
         </record>
 
+        <!-- Vue pour le modèle du rapport2 -->
+        <record id="view_report_wizard2" model="ir.ui.view">
+            <field name="name">order.follow.up.wizard</field>
+            <field name="model">order.follow.up.wizard2</field>
+            <field name="arch" type="xml">
+                <form string="Generate Report">
+                    <group>
+                        <field name="sale_order_id" />
+                         <field name="html" nolabel="1" readonly="true" widget="html" />
+                    </group>
+                    <footer>
+                        <button string="Generate Report" type="object" name="action_generate_report"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_open_order_follow_up_wizard2" model="ir.actions.act_window">
+            <field name="name">Order Follow-up</field>
+            <field name="res_model">order.follow.up.wizard2</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>  
+        </record>
+
         <record id="action_open_order_follow_up_wizard" model="ir.actions.act_window">
             <field name="name">Order Follow-up</field>
             <field name="res_model">order.follow.up.wizard</field>
             <field name="view_mode">form</field>
-            <field name="target">new</field>
+            <field name="target">new</field>  
         </record>
 
         <menuitem id="menu_order_follow_up"
-                    name="Suivie de Commande"
+                    name="Suivie Commande Petite Fig"
                     parent="menu_report_qty"
                     sequence="2"
                     action="action_open_order_follow_up_wizard" />
+
+        <menuitem id="menu_order_follow_up2"
+                    name="Suivie Commande Grand Fig"
+                    parent="menu_report_qty"
+                    sequence="3"
+                    action="action_open_order_follow_up_wizard2" />
     </data>
 </odoo>
 

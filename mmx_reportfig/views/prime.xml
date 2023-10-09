@@ -1,5 +1,5 @@
 <odoo>
-    <data>
+<data>
 <record model="ir.ui.view" id="prime_form">
     <field name="name">Prime de Production Form</field>
     <field name="model">prime.prod</field>
